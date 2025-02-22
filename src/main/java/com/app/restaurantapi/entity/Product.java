@@ -28,4 +28,7 @@ public class Product {
 
     @Column(name = "stock", nullable = false)
     private Integer stock;
+
+    @Column(name = "status", nullable = false)
+    private Boolean status;
 }
