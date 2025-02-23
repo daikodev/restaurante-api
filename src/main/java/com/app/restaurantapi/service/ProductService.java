@@ -20,5 +20,9 @@ public class ProductService {
         return productRepository.findAll();
     }
 
+    public List<String> findProductByCode(String code) {
+        return productRepository.findProductByCode(code);
+    }
+
 
 }
