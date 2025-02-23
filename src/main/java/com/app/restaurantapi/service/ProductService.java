@@ -20,9 +20,33 @@ public class ProductService {
         return productRepository.findAll();
     }
 
-    public List<String> findProductByCode(String code) {
+    public List<Product> findProductByCode(String code) {
         return productRepository.findProductByCode(code);
     }
 
+    public Product saveProduct(Product product) {
+        return productRepository.save(product);
+    }
 
+    public Product updateProduct(Product product, int id) {
+        Product existingProduct = productRepository.findById(id).orElseThrow(null);
+        if (existingProduct != null) {
+            existingProduct.setCode(product.getCode());
+            existingProduct.setDescription(product.getDescription());
+            existingProduct.setUnitOfMeasure(product.getUnitOfMeasure());
+            existingProduct.setPrice(product.getPrice());
+            existingProduct.setStock(product.getStock());
+            existingProduct.setStatus(product.getStatus());
+        }
+
+        return productRepository.save(product);
+    }
+
+    public Product deleteProduct(int id) {
+        Product existingProduct = productRepository.findById(id).orElseThrow(null);
+        if (existingProduct != null) {
+            existingProduct.setStatus(false);
+        }
+        return productRepository.save(existingProduct);
+    }
 }

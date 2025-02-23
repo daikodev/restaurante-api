@@ -24,7 +24,22 @@ public class ProductController {
     }
 
     @GetMapping("/code/{code}")
-    public List<String> findProductByCode(@PathVariable String code) {
+    public List<Product> findProductByCode(@PathVariable String code) {
         return productService.findProductByCode(code);
+    }
+
+    @PostMapping("/save")
+    public Product saveProduct(@RequestBody Product product) {
+        return productService.saveProduct(product);
+    }
+
+    @PatchMapping("/update/{id}")
+    public Product updateProduct(@RequestBody Product product, @PathVariable int id) {
+        return productService.updateProduct(product, id);
+    }
+
+    @PatchMapping("/delete/{id}")
+    public Product deleteProduct(@PathVariable int id) {
+        return productService.deleteProduct(id);
     }
 }

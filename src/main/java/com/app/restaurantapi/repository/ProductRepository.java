@@ -14,6 +14,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
     List<Product> findAllActiveProducts();
 
     @Query("SELECT P FROM Product P WHERE P.code = :code AND P.status = true")
-    List<String> findProductByCode(@Param("code") String code);
+    List<Product> findProductByCode(@Param("code") String code);
 
 }
