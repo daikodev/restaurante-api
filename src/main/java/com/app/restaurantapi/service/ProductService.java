@@ -7,12 +7,18 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@AllArgsConstructor
+
 @Service
 public class ProductService {
-    private ProductRepository productRepository;
+    private final ProductRepository productRepository;
+
+    public ProductService(ProductRepository productRepository) {
+        this.productRepository = productRepository;
+    }
 
     public List<Product> findAllActiveProducts() {
-        return productRepository.findAllActiveProducts();
+        return productRepository.findAll();
     }
+
+
 }

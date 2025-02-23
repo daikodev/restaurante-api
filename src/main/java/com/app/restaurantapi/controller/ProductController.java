@@ -11,11 +11,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @CrossOrigin
-@AllArgsConstructor
 @RestController
 @RequestMapping("/products")
 public class ProductController {
-    private ProductService productService;
+
+    private final ProductService productService;
 
     public ProductController(ProductService productService) {
         this.productService = productService;
