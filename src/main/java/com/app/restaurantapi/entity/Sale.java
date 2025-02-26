@@ -23,7 +23,7 @@ public class Sale {
     private String dni;
 
     @Column(name = "date", nullable = false)
-    private Date date;
+    private String date;
 
     @Column(name = "client", length = 100, nullable = false)
     private String client;

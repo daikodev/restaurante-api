@@ -7,7 +7,6 @@ import com.app.restaurantapi.repository.ProductRepository;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
 
@@ -48,8 +47,7 @@ public class SaleController {
         Sale sale = new Sale();
         sale.setCode(code);
         sale.setDni(dni);
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        sale.setDate(formatter.parse(date));
+        sale.setDate(date);
         sale.setClient(client);
         Product product = productRepository.findById(productId).orElse(null);
         sale.setProduct(product);
