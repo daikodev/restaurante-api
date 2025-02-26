@@ -1,7 +1,7 @@
 package com.app.restaurantapi.entity;
 
 import jakarta.persistence.*;
-import lombok.Setter;
+        import lombok.Setter;
 import lombok.Getter;
 
 import java.util.Date;
