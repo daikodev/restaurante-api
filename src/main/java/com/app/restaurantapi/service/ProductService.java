@@ -24,6 +24,10 @@ public class ProductService {
         return productRepository.findProductByCode(code);
     }
 
+    public List<Product> findProductsForSpinner() {
+        return productRepository.findProductsForSpinner();
+    }
+
     public Product saveProduct(Product product) {
         return productRepository.save(product);
     }
@@ -49,5 +53,9 @@ public class ProductService {
             existingProduct.setStatus(false);
         }
         return productRepository.save(existingProduct);
+    }
+
+    public boolean existsByCode(String code) {
+        return productRepository.existsByCode(code);
     }
 }

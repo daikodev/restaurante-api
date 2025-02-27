@@ -4,6 +4,7 @@ import com.app.restaurantapi.entity.Product;
 import com.app.restaurantapi.repository.ProductRepository;
 import com.app.restaurantapi.service.ProductService;
 import lombok.AllArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -26,18 +27,23 @@ public class ProductController {
         return productService.findAllActiveProducts();
     }
 
+
     @GetMapping("/code/{code}")
     public List<Product> findProductByCode(@PathVariable String code) {
         return productService.findProductByCode(code);
     }
 
-//    @PostMapping("/save")
-//    public Product saveProduct(@RequestBody Product product) {
-//        return productService.saveProduct(product);
-//    }
+    @GetMapping("/in-stock")
+    public List<Product> findProductsForSpinner() {
+        return productService.findProductsForSpinner();
+    }
 
     @PostMapping("/save")
-    public Product saveProduct(@RequestParam String code, @RequestParam String description, @RequestParam String unitOfMeasure, @RequestParam Double price, @RequestParam Integer stock, @RequestParam Boolean status) {
+    public ResponseEntity<?> saveProduct(@RequestParam String code, @RequestParam String description, @RequestParam String unitOfMeasure, @RequestParam Double price, @RequestParam Integer stock, @RequestParam Boolean status) {
+
+        if (productService.existsByCode(code)) {
+            return ResponseEntity.status(409).build();
+        }
 
         Product product = new Product();
         product.setCode(code);
@@ -47,7 +53,8 @@ public class ProductController {
         product.setStock(stock);
         product.setStatus(status);
 
-        return productService.saveProduct(product);
+        Product savedProduct = productService.saveProduct(product);
+        return ResponseEntity.ok(savedProduct);
     }
 
     @PatchMapping("/update/{id}")
