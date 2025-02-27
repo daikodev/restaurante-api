@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 @Tag(name = "Usuario", description = "Endpoints para validación de usuario")
 @RestController
-@RequestMapping("/restaurante")
+@RequestMapping("/user")
 public class UserController {
 
     @Autowired
