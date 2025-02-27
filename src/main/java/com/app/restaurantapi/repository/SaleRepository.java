@@ -16,5 +16,5 @@ public interface SaleRepository extends JpaRepository<Sale, Integer> {
     @Query("SELECT s FROM Sale s WHERE s.status = true")
     List<Sale> findAllActiveSales();
 
-
+    boolean existsByCode(String code);
 }

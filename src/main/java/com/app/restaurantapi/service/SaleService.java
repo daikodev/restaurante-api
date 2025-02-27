@@ -1,6 +1,8 @@
 package com.app.restaurantapi.service;
 
+import com.app.restaurantapi.entity.Product;
 import com.app.restaurantapi.entity.Sale;
+import com.app.restaurantapi.repository.ProductRepository;
 import com.app.restaurantapi.repository.SaleRepository;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +13,11 @@ import java.util.Optional;
 public class SaleService {
 
     private final SaleRepository saleRepository;
+    private final ProductRepository productRepository;
 
-    public SaleService(SaleRepository saleRepository) {
+    public SaleService(SaleRepository saleRepository, ProductRepository productRepository) {
         this.saleRepository = saleRepository;
+        this.productRepository = productRepository;
     }
 
     public Optional<Sale> findSaleByCode(String code) {
@@ -25,6 +29,10 @@ public class SaleService {
     }
 
     public Sale saveSale(Sale sale) {
+        Product product = sale.getProduct();
+        product.setStock(product.getStock() - sale.getQuantity());
+        productRepository.save(product);
+
         return saleRepository.save(sale);
     }
 
@@ -34,5 +42,9 @@ public class SaleService {
             existingSale.setStatus(false);
         }
         return saleRepository.save(existingSale);
+    }
+
+    public boolean existsByCode(String code) {
+        return saleRepository.existsByCode(code);
     }
 }

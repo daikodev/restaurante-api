@@ -4,6 +4,7 @@ import com.app.restaurantapi.entity.Sale;
 import com.app.restaurantapi.entity.Product;
 import com.app.restaurantapi.service.SaleService;
 import com.app.restaurantapi.repository.ProductRepository;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -34,15 +35,19 @@ public class SaleController {
     }
 
     @PostMapping("/save")
-    public Sale saveSale(@RequestParam String code,
-                         @RequestParam String dni,
-                         @RequestParam String date,
-                         @RequestParam String client,
-                         @RequestParam Integer productId,
-                         @RequestParam Integer quantity,
-                         @RequestParam Double total,
-                         @RequestParam Boolean discount,
-                         @RequestParam Boolean status) throws ParseException {
+    public ResponseEntity<?> saveSale(@RequestParam String code,
+                                   @RequestParam String dni,
+                                   @RequestParam String date,
+                                   @RequestParam String client,
+                                   @RequestParam Integer productId,
+                                   @RequestParam Integer quantity,
+                                   @RequestParam Double total,
+                                   @RequestParam Boolean discount,
+                                   @RequestParam Boolean status) throws ParseException {
+
+        if (saleService.existsByCode(code)) {
+            return ResponseEntity.status(409).build();
+        }
 
         Sale sale = new Sale();
         sale.setCode(code);
@@ -56,7 +61,8 @@ public class SaleController {
         sale.setTotal(total);
         sale.setStatus(status);
 
-        return saleService.saveSale(sale);
+        Sale savedSale = saleService.saveSale(sale);
+        return ResponseEntity.ok(savedSale);
     }
 
     @PatchMapping("/delete/{id}")
