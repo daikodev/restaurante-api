@@ -21,7 +21,7 @@ public class SaleService {
     }
 
     public List<Sale> findAllSales() {
-        return saleRepository.findAll();
+        return saleRepository.findAllActiveSales();
     }
 
     public Sale saveSale(Sale sale) {
