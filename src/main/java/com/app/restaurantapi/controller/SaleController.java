@@ -4,6 +4,7 @@ import com.app.restaurantapi.entity.Sale;
 import com.app.restaurantapi.entity.Product;
 import com.app.restaurantapi.service.SaleService;
 import com.app.restaurantapi.repository.ProductRepository;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +12,7 @@ import java.text.ParseException;
 import java.util.List;
 import java.util.Optional;
 
+@Tag(name = "Ventas", description = "Endpoints para gestionar ventas")
 @RestController
 @RequestMapping("/sales")
 public class SaleController {

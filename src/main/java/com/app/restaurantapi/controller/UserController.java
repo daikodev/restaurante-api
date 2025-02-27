@@ -2,10 +2,12 @@ package com.app.restaurantapi.controller;
 
 import com.app.restaurantapi.entity.User;
 import com.app.restaurantapi.service.UserService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(name = "Usuario", description = "Endpoints para validación de usuario")
 @RestController
 @RequestMapping("/restaurante")
 public class UserController {
