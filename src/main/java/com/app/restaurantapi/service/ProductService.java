@@ -28,8 +28,9 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public Product updateProduct(Product product, int id) {
+    public Product updateProduct(int id, Product product) {
         Product existingProduct = productRepository.findById(id).orElseThrow(null);
+
         if (existingProduct != null) {
             existingProduct.setCode(product.getCode());
             existingProduct.setDescription(product.getDescription());
@@ -39,7 +40,7 @@ public class ProductService {
             existingProduct.setStatus(product.getStatus());
         }
 
-        return productRepository.save(product);
+        return productRepository.save(existingProduct);
     }
 
     public Product deleteProduct(int id) {
